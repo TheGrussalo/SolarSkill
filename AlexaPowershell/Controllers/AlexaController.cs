@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
+using System.Management.Automation;
+using System.Collections.ObjectModel;
 
 namespace AlexaPowershell.Controllers
 {
@@ -99,6 +101,28 @@ namespace AlexaPowershell.Controllers
         private AlexaResponse ShutdownIntentHandler(AlexaRequest request)
         {
             var response = new AlexaResponse("Shutting down server", true);
+
+            using (PowerShell PowerShellInstance = PowerShell.Create())
+            {
+//                PowerShellInstance.AddScript(@"C:\Paddy\Powershell\Shutdown.ps1");
+                PowerShellInstance.AddScript("get-service");
+
+                Collection<PSObject> PSOutput = PowerShellInstance.Invoke();
+
+                // loop through each output object item
+                foreach (PSObject outputItem in PSOutput)
+                {
+                    // if null object was dumped to the pipeline during the script then a null
+                    // object may be present here. check for null to prevent potential NRE.
+                    if (outputItem != null)
+                    {
+                        //TODO: do something with the output item 
+                        // outputItem.BaseOBject
+                        //MessageBox.Show(outputItem.Properties.ToString());
+                        response.Response.OutputSpeech.Text = outputItem.Properties.ToString();
+                    }
+                }
+            }
             return response;
         }
     }
