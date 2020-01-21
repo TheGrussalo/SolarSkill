@@ -104,8 +104,7 @@ namespace AlexaPowershell.Controllers
 
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {
-//                PowerShellInstance.AddScript(@"C:\Paddy\Powershell\Shutdown.ps1");
-                PowerShellInstance.AddScript("get-service");
+                PowerShellInstance.AddScript(@"C:\Paddy\Powershell\Shutdown.ps1");
 
                 Collection<PSObject> PSOutput = PowerShellInstance.Invoke();
 
