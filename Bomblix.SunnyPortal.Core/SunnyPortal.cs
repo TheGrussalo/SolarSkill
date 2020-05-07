@@ -40,7 +40,8 @@ namespace Bomblix.SunnyPortal.Core
                 reguestParameters.Add( Constants.ViewStateGeneratorParameter, string.Empty );
                 reguestParameters.Add( Constants.HiddenLanguageParameter, Constants.PortalCulture );
 
-                byte[] responseBytes = await wc.UploadValuesTaskAsync( Constants.LoginUrl, Constants.RequestMethod,reguestParameters);
+                //byte[] responseBytes = await wc.UploadValuesTaskAsync( Constants.LoginUrl, Constants.RequestMethod,reguestParameters);
+                byte[] responseBytes = wc.UploadValues(Constants.LoginUrl, Constants.RequestMethod, reguestParameters);
 
                 string responseBody = Encoding.UTF8.GetString( responseBytes );
 
@@ -64,8 +65,8 @@ namespace Bomblix.SunnyPortal.Core
 
             using ( var z = new CookieAwareWebClient( container ) )
             {
-                string jsonResult = await z.DownloadStringTaskAsync( new Uri( string.Format( Constants.LiveDataUrl, DateTime.Now.Millisecond ) ) );
-                try
+                //string jsonResult = await z.DownloadStringTaskAsync( new Uri( string.Format( Constants.LiveDataUrl, DateTime.Now.Millisecond ) ) );
+                string jsonResult = z.DownloadString(new Uri(string.Format(Constants.LiveDataUrl, DateTime.Now.Millisecond))); try
                 {
                     var liveData = Newtonsoft.Json.JsonConvert.DeserializeObject<LiveData>( jsonResult );
 

@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="username" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">solar@grahamrussell.co.uk</Value>
+      <Value Profile="(Default)"></Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Sp00ky!!</Value>
+      <Value Profile="(Default)"></Value>
     </Setting>
   </Settings>
 </SettingsFile>

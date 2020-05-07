@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
-using System.Management.Automation;
+//using System.Management.Automation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -13,16 +13,16 @@ namespace AlexaPowershell.Controllers
 {
     public class AlexaController : ApiController
     {
-        private const string ApplicationId = "amzn1.ask.skill.25ef031c-fb92-439d-ac26-82b8a61ccf14";
+        private const string ApplicationId = "amzn1.ask.skill.9771652d-6c7b-47eb-b04e-4d5468ff6e7a";
 
         [HttpPost, Route("api/alexa/solarskill")]
-        public dynamic powershell(AlexaRequest alexaRequest)
+        public dynamic solar(AlexaRequest alexaRequest)
         {
-            //if (alexaRequest.Session.Application.ApplicationId != ApplicationId)
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
-            //AlexaResponse response = null;
+            if (alexaRequest.Session.Application.ApplicationId != ApplicationId)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
             AlexaResponse response = new AlexaResponse(alexaRequest.Request.Type, true);
+
             try
             {
                 if (!string.IsNullOrWhiteSpace(alexaRequest.Request.Type))
@@ -43,6 +43,45 @@ namespace AlexaPowershell.Controllers
                 throw;
             }
             return response;
+        }
+
+        [HttpGet, Route("api/alexa/solarskill")]
+        public dynamic solar()
+        {
+            Task<int> task = SolarAsync();
+            task.Wait();
+            var power = task.Result;
+
+            return power;
+            
+            //var response = new AlexaResponse(String.Format("Current Power is {0} watts", power), true);
+
+
+            //if (alexaRequest.Session.Application.ApplicationId != ApplicationId)
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+            //AlexaResponse response = null;
+
+            //AlexaResponse response = new AlexaResponse(alexaRequest.Request.Type, true);
+            //try
+            //{
+            //    if (!string.IsNullOrWhiteSpace(alexaRequest.Request.Type))
+            //    {
+            //        switch (alexaRequest.Request.Type)
+            //        {
+            //            case "LaunchRequest":
+            //                response = LaunchRequestHandler(alexaRequest);
+            //                break;
+            //            case "IntentRequest":
+            //                response = IntentRequestHandler(alexaRequest);
+            //                break;
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //return response;
         }
 
         private AlexaResponse LaunchRequestHandler(AlexaRequest request)
@@ -123,6 +162,7 @@ namespace AlexaPowershell.Controllers
             var userPassword = Properties.Settings.Default.password;
 
             var SunnyPortal = new Bomblix.SunnyPortal.Core.SunnyPortal();
+            int power = 0;
 
             var result = await SunnyPortal.Connect(userlogin, userPassword);
 
@@ -132,10 +172,10 @@ namespace AlexaPowershell.Controllers
             }
             else
             {
-                var power = await SunnyPortal.GetCurrentPower();
+                power = await SunnyPortal.GetCurrentPower();
                 Console.WriteLine("Current power is " + power + " watts");
             }
-            return 1;
+            return power;
         }
     }
 }
