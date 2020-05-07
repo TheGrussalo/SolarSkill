@@ -1,7 +1,0 @@
-﻿ShutdownIntent shutdown servers
-ShutdownIntent shutdown
-RebootIntent reboot
-RebootIntent reboot plex
-RebootIntent restart
-RebootIntent restart plex
-RebootIntent bounce plex
