@@ -13,11 +13,12 @@ namespace AlexaPowershell.Controllers
 {
     public class AlexaController : ApiController
     {
-        private const string ApplicationId = "amzn1.ask.skill.9771652d-6c7b-47eb-b04e-4d5468ff6e7a";
 
         [HttpPost, Route("api/alexa/solarskill")]
         public dynamic solar(AlexaRequest alexaRequest)
         {
+            string ApplicationId = Properties.Settings.Default.AlexaSkillID;
+
             if (alexaRequest.Session.Application.ApplicationId != ApplicationId)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
@@ -158,8 +159,8 @@ namespace AlexaPowershell.Controllers
 
         static async Task<int> SolarAsync()
         {
-            var userlogin = Properties.Settings.Default.username;
-            var userPassword = Properties.Settings.Default.password;
+            var userlogin = Properties.Settings.Default.SolarPortalUsername;
+            var userPassword = Properties.Settings.Default.SolarPortalPassword;
 
             var SunnyPortal = new Bomblix.SunnyPortal.Core.SunnyPortal();
             int power = 0;

@@ -2,10 +2,13 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AlexaPowershell.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="username" Type="System.String" Scope="Application">
+    <Setting Name="SolarPortalUsername" Type="System.String" Scope="Application">
       <Value Profile="(Default)"></Value>
     </Setting>
-    <Setting Name="password" Type="System.String" Scope="Application">
+    <Setting Name="SolarPortalPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)"></Value>
+    </Setting>
+    <Setting Name="AlexaSkillID" Type="System.String" Scope="Application">
       <Value Profile="(Default)"></Value>
     </Setting>
   </Settings>

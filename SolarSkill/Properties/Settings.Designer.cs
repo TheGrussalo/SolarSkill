@@ -26,18 +26,27 @@ namespace AlexaPowershell.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string username {
+        public string SolarPortalUsername {
             get {
-                return ((string)(this["username"]));
+                return ((string)(this["SolarPortalUsername"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string password {
+        public string SolarPortalPassword {
             get {
-                return ((string)(this["password"]));
+                return ((string)(this["SolarPortalPassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AlexaSkillID {
+            get {
+                return ((string)(this["AlexaSkillID"]));
             }
         }
     }
